@@ -1,7 +1,14 @@
 /** Thin client for the FastAPI course desk running on :8000. */
 
-const API_BASE =
-  (import.meta.env.VITE_API_BASE as string | undefined) ?? 'http://127.0.0.1:8000'
+/** Render's `fromService` supplies a bare hostname, so add the scheme back. */
+function normalizeBase(raw: string | undefined): string {
+  const value = raw?.trim()
+  if (!value) return 'http://127.0.0.1:8000'
+  const withScheme = /^https?:\/\//.test(value) ? value : `https://${value}`
+  return withScheme.replace(/\/+$/, '')
+}
+
+const API_BASE = normalizeBase(import.meta.env.VITE_API_BASE as string | undefined)
 
 /** One row of data/yale_som_classes.json, as served by /api/courses. */
 export interface Course {

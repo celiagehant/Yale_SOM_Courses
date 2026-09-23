@@ -1,0 +1,42 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+#
+# In Render: New + → Blueprint → pick the Yale_SOM_Courses repo. Render reads
+# this file and pre-fills both services. The only thing you type by hand is
+# PORTKEY_API_KEY, which is marked `sync: false` so it is never stored in git.
+
+services:
+  # ---------------------------------------------------------------- backend
+  - type: web
+    name: yale-som-courses-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      # Paste your Portkey key into the Render dashboard when prompted.
+      - key: PORTKEY_API_KEY
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.13.4"
+
+  # --------------------------------------------------------------- frontend
+  - type: web
+    name: yale-som-courses-web
+    runtime: static
+    rootDir: frontend
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      # Render fills this with the API's hostname; api.ts adds the https://.
+      - key: VITE_API_BASE
+        fromService:
+          type: web
+          name: yale-som-courses-api
+          property: host
+    routes:
+      # Single-page app: send unknown paths to index.html rather than a 404.
+      - type: rewrite
+        source: /*
+        destination: /index.html
