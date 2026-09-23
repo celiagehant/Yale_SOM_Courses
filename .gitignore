@@ -1,0 +1,23 @@
+# Secrets — never commit the real key, ship .env.example only
+.env
+.env.local
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Node / Vite
+node_modules/
+dist/
+*.local
+
+# macOS
+.DS_Store
+*.webloc
+
+# Editor / tooling
+.claude/
+
+# Source archive of data/ — the unzipped JSON is committed instead
+data.zip

@@ -1,0 +1,62 @@
+:root {
+  /* Yale blue and a warm neutral scale to sit against it. */
+  --yale: #00356b;
+  --yale-deep: #001f42;
+  --yale-light: #286dc0;
+  --yale-tint: #eaf1f9;
+  --accent: #bd5319;
+
+  --ink: #1a1a1a;
+  --ink-soft: #4a5568;
+  --ink-faint: #767e8b;
+  --line: #e2e6ec;
+  --surface: #ffffff;
+  --canvas: #f6f7f9;
+
+  --radius: 12px;
+  --shadow-sm: 0 1px 2px rgba(0, 31, 66, 0.06), 0 1px 3px rgba(0, 31, 66, 0.05);
+  --shadow-md: 0 4px 16px rgba(0, 31, 66, 0.08);
+
+  font-family: 'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
+  color: var(--ink);
+  background: var(--canvas);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+}
+
+button,
+input,
+select {
+  font-family: 'Helvetica Neue', 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+}
+
+code {
+  font-family: 'SF Mono', 'Menlo', monospace;
+}
+
+a {
+  color: var(--yale-light);
+}
+
+:focus-visible {
+  outline: 2px solid var(--yale-light);
+  outline-offset: 2px;
+}
